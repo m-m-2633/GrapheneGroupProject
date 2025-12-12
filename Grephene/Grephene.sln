@@ -1,0 +1,36 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Graphene", "Graphene", "{93F5293E-0155-82D4-8BF8-098CF723F3D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrapheneSensore", "Graphene\GrapheneSensore\GrapheneSensore.csproj", "{9ECBCDFA-A701-9B80-748E-8CA8DA76BFF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResetAdminPassword", "Graphene\ResetAdminPassword\ResetAdminPassword.csproj", "{23AA91D7-3975-F321-FDDB-7BC39FFF9295}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9ECBCDFA-A701-9B80-748E-8CA8DA76BFF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ECBCDFA-A701-9B80-748E-8CA8DA76BFF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ECBCDFA-A701-9B80-748E-8CA8DA76BFF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ECBCDFA-A701-9B80-748E-8CA8DA76BFF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23AA91D7-3975-F321-FDDB-7BC39FFF9295}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23AA91D7-3975-F321-FDDB-7BC39FFF9295}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23AA91D7-3975-F321-FDDB-7BC39FFF9295}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23AA91D7-3975-F321-FDDB-7BC39FFF9295}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9ECBCDFA-A701-9B80-748E-8CA8DA76BFF6} = {93F5293E-0155-82D4-8BF8-098CF723F3D6}
+		{23AA91D7-3975-F321-FDDB-7BC39FFF9295} = {93F5293E-0155-82D4-8BF8-098CF723F3D6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FA579649-B716-4677-BE25-4BA57D22DE14}
+	EndGlobalSection
+EndGlobal

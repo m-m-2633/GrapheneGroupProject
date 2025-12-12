@@ -1,0 +1,218 @@
+<Window x:Class="GrapheneSensore.Views.TemplateSelectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:helpers="clr-namespace:GrapheneSensore.Helpers"
+        Title="Select Feedback Template" 
+        Height="650" Width="900"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F5F5">
+
+    <Window.Resources>
+        <helpers:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <helpers:ZeroToVisibilityConverter x:Key="ZeroToVisibilityConverter"/>
+        
+        <Style x:Key="TemplateCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#E3F2FD"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="SelectButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#4CAF50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="25,12"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="5" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#388E3C"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#CCCCCC"/>
+                    <Setter Property="Cursor" Value="Arrow"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        
+        <Border Grid.Row="0" Background="#1976D2" Padding="25,20">
+            <Grid>
+                <StackPanel>
+                    <TextBlock Text="📝 Select Feedback Template" 
+                               FontSize="24" 
+                               FontWeight="Bold" 
+                               Foreground="White"/>
+                    <TextBlock Text="{Binding Applicant.FullName, StringFormat='For applicant: {0}'}" 
+                               FontSize="14" 
+                               Foreground="#E3F2FD" 
+                               Margin="0,8,0,0"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="20">
+            <ItemsControl ItemsSource="{Binding Templates}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource TemplateCardStyle}"
+                                MouseLeftButtonDown="TemplateCard_Click"
+                                Tag="{Binding}">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.2"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                
+                                <Border Grid.Column="0" 
+                                        Background="#E3F2FD" 
+                                        Width="60" 
+                                        Height="60" 
+                                        CornerRadius="30"
+                                        Margin="0,0,20,0">
+                                    <TextBlock Text="📋" 
+                                               FontSize="32" 
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"/>
+                                </Border>
+
+                                
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding TemplateName}" 
+                                               FontSize="18" 
+                                               FontWeight="Bold" 
+                                               Foreground="#1976D2"/>
+                                    <TextBlock Text="{Binding Description}" 
+                                               FontSize="13" 
+                                               Foreground="#757575" 
+                                               TextWrapping="Wrap"
+                                               Margin="0,5,0,0"/>
+                                    <TextBlock FontSize="11" 
+                                               Foreground="#9E9E9E" 
+                                               Margin="0,8,0,0">
+                                        <Run Text="Created: "/>
+                                        <Run Text="{Binding CreatedDate, StringFormat='{}{0:MMM dd, yyyy}'}"/>
+                                    </TextBlock>
+                                </StackPanel>
+
+                                
+                                <Border Grid.Column="2" 
+                                        Background="#4CAF50" 
+                                        CornerRadius="20" 
+                                        Padding="15,8"
+                                        VerticalAlignment="Center">
+                                    <TextBlock Text="Click to Select" 
+                                               Foreground="White" 
+                                               FontSize="12" 
+                                               FontWeight="SemiBold"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        
+        <Border Grid.Row="1" 
+                Background="#AA000000" 
+                Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="⏳" FontSize="48" HorizontalAlignment="Center"/>
+                <TextBlock Text="Loading templates..." 
+                           Foreground="White" 
+                           FontSize="18" 
+                           HorizontalAlignment="Center" 
+                           Margin="0,10,0,0"/>
+            </StackPanel>
+        </Border>
+
+        
+        <StackPanel Grid.Row="1" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Visibility="{Binding Templates.Count, Converter={StaticResource ZeroToVisibilityConverter}}">
+            <TextBlock Text="📋" FontSize="72" HorizontalAlignment="Center" Foreground="#BDBDBD"/>
+            <TextBlock Text="No templates available" 
+                       FontSize="20" 
+                       Foreground="#757575" 
+                       HorizontalAlignment="Center" 
+                       Margin="0,15,0,5"/>
+            <TextBlock Text="Please contact administrator to create feedback templates" 
+                       FontSize="14" 
+                       Foreground="#9E9E9E" 
+                       HorizontalAlignment="Center"/>
+        </StackPanel>
+
+        
+        <Border Grid.Row="2" Background="White" Padding="20,15" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="✕ Cancel" 
+                        Command="{Binding CancelCommand}"
+                        Click="CloseButton_Click"
+                        Background="#757575"
+                        Foreground="White"
+                        BorderThickness="0"
+                        Padding="25,12"
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        Cursor="Hand"
+                        Margin="0,0,10,0">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" 
+                                                CornerRadius="5" 
+                                                Padding="{TemplateBinding Padding}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#616161"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
